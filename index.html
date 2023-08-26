@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Guessing Game</title>
+  <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #output {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .container h1,p {
+            color: rgb(0, 0, 0);
+            font-weight: 700;
+            font-size: 50px;
+            text-align: center;
+        }
+        .container {
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(90deg, rgb(210, 219, 140), rgb(141, 101, 20));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .row {
+            width: 50%;
+            justify-content: space-between;
+            align-items: center;
+            background: rgb(0, 18, 56);
+            border-radius: 50px;
+            padding: 50px 20px;
+        }
+        .container h1{
+            font-size: 80px;
+            font-weight: 5000;
+            margin-bottom: 10px;
+            color: #3b043b;
+        }
+        p{
+            font-size: 25px;
+            font-weight: 5000;
+            margin-bottom: 10px;
+            color: #fdf502;
+        }
+        .row input {
+            width: 150px;
+            height: 50px;
+            font-size: 20px;
+            background: rgb(115, 224, 226);
+            border-radius: 5px;
+            text-align: center;
+            color: rgb(7, 97, 16);
+        }
+  </style>
+</head>
+
+<body>
+    <div class="container">
+          <h1>Number Guessing Game</h1>
+          <div class = "row">
+            <p>Guess a number between 1 and 100:</p>
+            <br>
+            <input type="text" id="guessInput">
+            <input type="submit" value="Submit Guess" id="guessButton">
+            <br>
+            <p id="output"></p>
+          </div>
+    </div>
+    <script>
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        const guessInput = document.getElementById("guessInput");
+        const guessButton = document.getElementById("guessButton");
+        const output = document.getElementById("output");
+
+        guessButton.addEventListener("click", function() {
+            const userGuess = parseInt(guessInput.value);
+            attempts++;
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                output.innerHTML = "Please enter a valid number between 1 and 100.";
+            } else if (userGuess < randomNumber) {
+                output.innerHTML = "Too low! Try again.";
+            } else if (userGuess > randomNumber) {
+                output.innerHTML = "Too high! Try again.";
+            } else {
+                output.innerHTML = `Congratulations! You guessed the correct number (${randomNumber}) in ${attempts} attempts.`;
+                guessInput.setAttribute("disabled", "true");
+                guessButton.setAttribute("disabled", "true");
+            }
+
+            guessInput.value = "";
+        });
+    </script>
+</body>
+</html>
